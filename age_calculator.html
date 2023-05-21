@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Age  Calculator</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: rgb(255, 255, 255);
+            display: grid;
+            place-items: center;
+            background: black;
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        .container{
+            background-image: radial-gradient(circle 369px at -2.9% 12.9%,
+            rgb(255, 233, 106) 0%,
+            rgba(236,180,238,0.56) 70.4% ,
+            rgba(163,203,247,1) 100.7%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 0 20px;
+            width: 400px;
+            transition: 1s;
+            /* animation: floatt 5s infinite 0s ease; */
+            box-shadow: 10px 15px 100px rgba(163,203,247,1);
+            color: rgb(0, 0, 0);
+        }
+        
+        /* @keyframes floatt{
+            0%{
+                box-shadow: 0px 5px 100px rgba(241, 241, 241, 0.384);
+            }
+            25%{
+                box-shadow: 0px 5px 400px rgba(132, 132, 132, 0.384);
+            }
+            50%{
+                box-shadow: 0px 5px 800px rgba(27, 27, 27, 0.384);
+            }
+            75%{
+                box-shadow: 0px 5px 400px rgba(101, 101, 101, 0.384);
+            }
+            100%{
+                box-shadow: 0px 5px 100px rgba(255, 255, 255, 0.384);
+            }
+        } */
+
+        label{
+            font-size: large;
+            font-weight: 500;
+            margin-right: 9px;
+        }
+
+        input{
+            border: none;
+            padding: 10px;
+            font-size: large;
+            outline: none;
+            border-radius: 10px;
+        }
+
+        .btns{
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        button{
+            border-radius: 20px;
+            width: 50%;
+            padding: 10px;
+            font-size: medium;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        span{
+            font-weight: bold;
+        }
+
+        ul{
+            font-size: large;
+            list-style: none;
+            transition: all 2s;
+            display: none;
+        }
+
+        li::marker{
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+<body>
+    <h1>Age Calculator</h1>
+    <main class="container">
+        <div class="input">
+            <label for="birthdate">Enter your Birthdate :</label>
+            <input type="date" id="birthdate">
+        </div>
+        
+        <ul id="listt">
+            <h3>You are </h3>
+            <li><span id="years"></span> years</li>
+            <li><span id="months"></span>months</li>
+            <li><span id="days"></span> days</li>
+            <li><span id="hours"></span> hours</li>
+            <li><span id="minutes"></span> minutes</li>
+            <li><span id="seconds"></span> seconds</li>
+            <li><span id="milliseconds"></span> milliseconds</li>
+            <h4><pre>         old and living....</pre></h4>
+        </ul>
+
+
+        <div class="btns">
+            <button onclick="calculate()">Calculate</button>
+            <button onclick="reset()">Reset</button>
+        </div>
+    </main>
+
+    <script>
+        function calculate(){
+            setInterval(() => {
+                let birthdate = new Date(document.getElementById("birthdate").value);
+                let now = new Date();
+                let ageInMs = now.getTime() - birthdate.getTime();
+                let ageInS = ageInMs/1000;
+                let ageInMins = ageInS/60;
+                let ageInHrs = ageInMins/60;
+                let ageInDays = ageInHrs/24;
+                let ageInMonths = ageInDays/30.4375;
+                let ageInYears = ageInMonths/12;
+
+                document.querySelector("#years").innerHTML= Math.floor(ageInYears);
+                document.querySelector("#months").innerHTML= Math.floor(ageInMonths%12);
+                document.querySelector("#days").innerHTML= Math.floor(ageInDays%30.4375);
+                document.querySelector("#hours").innerHTML= Math.floor(ageInHrs%24);
+                document.querySelector("#minutes").innerHTML= Math.floor(ageInMins%60);
+                document.querySelector("#seconds").innerHTML= Math.floor(ageInS%60);
+                document.querySelector("#seconds").style.borderBottom = "1px solid gray";
+                document.querySelector("#milliseconds").innerHTML= Math.floor(ageInMs%1000);
+                document.querySelector("#milliseconds").style.borderBottom = "1px solid gray";
+                document.getElementById("listt").style.display = "block"
+            },1)
+        }
+
+        function reset(){
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
